@@ -3,20 +3,19 @@
 Alpine Linux Docker image with additional stuff included
 
 ## Tags
+* 1.2-rich (based on alpine:3.7 - with edge repositories)
 
-* 1.1-rich (based on alpine:3.6)
-* 1.0-rich (based on alpine:3.3)
-* 3.3-ssh-sudo
-* 3.3-ssh
-* 3.2-ssh
-* 3.2-bash
-
-### *-bash tags
-Alpine Linux with `bash` package installed and configured as CMD.
-
-
-### *-ssh tags
-Alpine Linux with `bash`, `dropbear` and `openssh` packages installed.
+### About the *-rich tags
+Alpine Linux with following packages installed:
+* `bash`
+* `dropbear`
+* `openssh`
+* `sudo`
+* `iptables`
+* `openjdk8`
+* `rsync`
+* `dstat`
+* `curl`
 
 The **[dropbear](https://matt.ucc.asn.au/dropbear/dropbear.html)** is a lightweight SSH server and client.
 
@@ -47,12 +46,6 @@ The ones included in *-ssh tag plus following
 | USER_PASSWORD |         | alpine user's password |
 | USER_AUTHORIZED_KEY |   | entry to be added to /home/alpine/.ssh/authorized_keys |
 
-### *-rich tags
-Numbering of this tags doesn't copy the alpine numbering! (e.g. `rich-1.0` is based on `alpine:3.3`)
-
-This image adds more features to ones provided by `*-ssh-sudo`. New package(s):
-* iptables (from rich-1.0)
-* openjdk8 (from rich-1.1)
 
 ## Sample usage
 
@@ -60,12 +53,12 @@ Start the container with root's password configured to `"alpine"`.
 The dropbear SSH server will run on foreground.
 
 ```bash
-docker run -e "ROOT_PASSWORD=alpine" -it kwart/alpine-ext:3.3-ssh
+docker run -e "ROOT_PASSWORD=alpine" -it kwart/alpine:1.2-rich
 ```
 
 Start the container with SSH private key authentication configured.
 The `dropbear` SSH server will run on background and `bash` on foreground
 
 ```bash
-docker run -e "ROOT_AUTHORIZED_KEY=`cat ~/.ssh/id_rsa.pub`" -it kwart/alpine-ext:3.3-ssh /bin/bash
+docker run -e "ROOT_AUTHORIZED_KEY=`cat ~/.ssh/id_rsa.pub`" -it kwart/alpine:1.2-rich /bin/bash
 ```

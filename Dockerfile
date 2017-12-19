@@ -10,16 +10,19 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-FROM alpine:3.6
+FROM alpine:3.7
 
 MAINTAINER Josef (kwart) Cacek <josef.cacek@gmail.com>
 
 ENV DROPBEAR_CONF=/etc/dropbear \
     ALPINE_USER=alpine
 
-RUN echo "Installing APK packages" \
-    && apk add --update bash dropbear openssh sudo iptables openjdk8 \
+RUN echo "Setting edge repositories" \
+    && rm /etc/apk/repositories \
+    && for repo in main community testing; do echo "http://dl-cdn.alpinelinux.org/alpine/edge/$repo" >>/etc/apk/repositories; done \
+    && apk upgrade --update-cache --available \
+    && echo "Installing APK packages" \
+    && apk add bash dropbear openssh sudo iptables openjdk8 rsync dstat curl \
     && echo "Configuring SSH" \
     && mkdir /usr/libexec \
     && ln -s /usr/lib/ssh/sftp-server /usr/libexec/ \
