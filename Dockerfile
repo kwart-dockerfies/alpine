@@ -17,6 +17,8 @@ MAINTAINER Josef (kwart) Cacek <josef.cacek@gmail.com>
 ENV DROPBEAR_CONF=/etc/dropbear \
     ALPINE_USER=alpine
 
+COPY bashrc /
+
 RUN echo "Setting edge repositories" \
     && rm /etc/apk/repositories \
     && for repo in main community testing; do echo "http://dl-cdn.alpinelinux.org/alpine/edge/$repo" >>/etc/apk/repositories; done \
@@ -28,9 +30,12 @@ RUN echo "Setting edge repositories" \
     && ln -s /usr/lib/ssh/sftp-server /usr/libexec/ \
     && touch /var/log/lastlog \
     && echo "Adding user $ALPINE_USER in wheel group (with a NOPASSWD: entry in sudoers file)" \
-    && adduser -D $ALPINE_USER \
+    && adduser -D $ALPINE_USER -s /bin/bash \
     && adduser $ALPINE_USER wheel \
     && echo '%wheel ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/wheel \
+    && sed -i s#/bin/ash#/bin/bash# /etc/passwd \
+    && ln -s /bashrc /root/.bashrc \
+    && sudo -u $ALPINE_USER ln -s /bashrc /home/$ALPINE_USER/.bashrc \
     && echo "Cleaning APK cache" \
     && rm -rf /var/cache/apk/*
 
