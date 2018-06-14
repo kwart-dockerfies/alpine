@@ -24,7 +24,7 @@ RUN echo "Setting edge repositories" \
     && for repo in main community testing; do echo "http://dl-cdn.alpinelinux.org/alpine/edge/$repo" >>/etc/apk/repositories; done \
     && apk upgrade --update-cache --available \
     && echo "Installing APK packages" \
-    && apk add bash dropbear openssh sudo iptables openjdk8 rsync dstat curl \
+    && apk add bash dropbear openssh sudo iptables openjdk8 rsync dstat curl procps \
     && echo "Configuring SSH" \
     && mkdir /usr/libexec \
     && ln -s /usr/lib/ssh/sftp-server /usr/libexec/ \

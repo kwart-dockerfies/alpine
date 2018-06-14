@@ -4,6 +4,7 @@ Alpine Linux Docker image with additional stuff included
 
 ## Tags
 * 1.2-rich (based on alpine:3.7 - with edge repositories)
+* 1.3-rich (based on alpine:3.7 - with edge repositories)
 
 ### About the *-rich tags
 Alpine Linux with following packages installed:
@@ -16,6 +17,7 @@ Alpine Linux with following packages installed:
 * `rsync`
 * `dstat`
 * `curl`
+* `procps`
 
 The **[dropbear](https://matt.ucc.asn.au/dropbear/dropbear.html)** is a lightweight SSH server and client.
 
