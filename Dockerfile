@@ -10,7 +10,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-FROM alpine:3.7
+FROM alpine:3.11.3
 
 MAINTAINER Josef (kwart) Cacek <josef.cacek@gmail.com>
 
